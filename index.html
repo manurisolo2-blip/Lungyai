@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/images/lung-yai-logo.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#2A1A11" />
+    <title>Lung Yai Thai Tapas | Thai street food in Little Havana, Miami</title>
+    <meta
+      name="description"
+      content="Thai street food on Calle Ocho since 2015. Michelin Bib Gourmand 2022, 2023 and 2025. Walk-ins only, one order per table. 1731 SW 8th St, Miami. (786) 334-6262."
+    />
+
+    <meta property="og:type" content="restaurant" />
+    <meta property="og:url" content="https://lungyai.com/" />
+    <meta property="og:title" content="Lung Yai Thai Tapas" />
+    <meta property="og:description" content="Thai street food on Calle Ocho, Little Havana. Walk-ins only." />
+    <meta
+      property="og:image"
+      content="https://lungyai.com/wp-content/uploads/2023/09/lung_yai_thai_tapas4-credit_billwisserphoto.com_.jpg"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!--
+      Type: Pridi (slab serif, Thai + Latin) for headings and dish names, echoing
+      the slab lettering of the Lung Yai sign. Kanit (Thai + Latin sans) for text.
+      Both are Cadson Demak families, so Thai dish names match the English.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Pridi:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!--
+      Loading screen. Inline so it paints before the app bundle, the stylesheet and the fonts
+      arrive. The script at the top of <body> lifts it off the page once everything has loaded.
+    -->
+    <style>
+      #loader {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: grid;
+        place-items: center;
+        background: #2a1a11;
+      }
+      /* Rounded trailing edge, like the rim of a bowl, so the lift is not a flat wipe. */
+      #loader::after {
+        content: "";
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        height: 18vh;
+        border-radius: 0 0 50% 50%;
+        background: inherit;
+      }
+      #loader .loader-mark {
+        display: grid;
+        justify-items: center;
+        gap: 28px;
+        opacity: 0;
+        transform: translateY(10px);
+        transition:
+          opacity 500ms ease-out,
+          transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      /* Shown once the logo has loaded, so it fades in instead of popping in half drawn. */
+      #loader .loader-mark.is-in {
+        opacity: 1;
+        transform: none;
+      }
+      #loader img {
+        display: block;
+        width: clamp(120px, 26vw, 168px);
+        height: auto;
+      }
+      #loader .loader-bar {
+        width: 132px;
+        height: 3px;
+        overflow: hidden;
+        border-radius: 3px;
+        background: rgba(255, 255, 255, 0.14);
+      }
+      #loader .loader-bar::before {
+        content: "";
+        display: block;
+        height: 100%;
+        background: #e9a91e;
+        transform-origin: left center;
+        animation: loader-fill 2.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      #loader .loader-sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+      }
+      #loader.is-leaving {
+        pointer-events: none;
+        transform: translateY(calc(-100% - 18vh));
+        transition: transform 900ms cubic-bezier(0.76, 0, 0.24, 1) 200ms;
+      }
+      #loader.is-leaving .loader-mark {
+        opacity: 0;
+        transform: translateY(-14px);
+        transition-duration: 250ms;
+      }
+      #loader.is-leaving .loader-bar::before {
+        animation: loader-done 200ms ease-out forwards;
+      }
+      @keyframes loader-fill {
+        from {
+          transform: scaleX(0);
+        }
+        to {
+          transform: scaleX(0.9);
+        }
+      }
+      @keyframes loader-done {
+        from {
+          transform: scaleX(0.9);
+        }
+        to {
+          transform: scaleX(1);
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #loader .loader-bar {
+          display: none;
+        }
+        #loader .loader-mark {
+          transform: none;
+        }
+        #loader.is-leaving {
+          transform: none;
+          opacity: 0;
+          transition: opacity 250ms linear;
+        }
+      }
+    </style>
+    <noscript><style>#loader { display: none; }</style></noscript>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Restaurant",
+        "name": "Lung Yai Thai Tapas",
+        "url": "https://lungyai.com/",
+        "image": "https://lungyai.com/wp-content/uploads/2023/09/lung_yai_thai_tapas4-credit_billwisserphoto.com_.jpg",
+        "telephone": "+17863346262",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "1731 SW 8th St",
+          "addressLocality": "Miami",
+          "addressRegion": "FL",
+          "postalCode": "33135",
+          "addressCountry": "US"
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": 25.7658128, "longitude": -80.2233052 },
+        "servesCuisine": ["Thai"],
+        "acceptsReservations": false,
+        "menu": "https://order.online/store/-27918858/?pickup=true&hideModal=true",
+        "sameAs": [
+          "https://www.instagram.com/lungyaithaitapas/",
+          "https://www.facebook.com/profile.php?id=100050371791870"
+        ],
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            "opens": "12:00",
+            "closes": "15:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+            "opens": "17:00",
+            "closes": "22:00"
+          }
+        ],
+        "award": [
+          "MICHELIN Guide Bib Gourmand 2022",
+          "MICHELIN Guide Bib Gourmand 2023",
+          "MICHELIN Guide Bib Gourmand 2025",
+          "Miami New Times Best Thai Restaurant 2022",
+          "Miami New Times Best Thai Restaurant 2024"
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <div id="loader" role="status">
+      <div class="loader-mark">
+        <img
+          src="/images/lung-yai-logo.png"
+          width="300"
+          height="271"
+          alt=""
+          fetchpriority="high"
+          onload="this.parentNode.classList.add('is-in')"
+          onerror="this.parentNode.classList.add('is-in')"
+        />
+        <div class="loader-bar"></div>
+      </div>
+      <span class="loader-sr">Loading</span>
+    </div>
+    <script>
+      /*
+        Lifts the loading screen after the load event. It stays at least MIN_VISIBLE ms from
+        navigation start, so a fast load reads as a moment instead of a flicker, and never holds
+        the page longer than MAX_WAIT. usePageReady() in the app listens for the same event.
+      */
+      (function () {
+        var MIN_VISIBLE = 700;
+        var MAX_WAIT = 4000;
+        var loader = document.getElementById("loader");
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var lifted = false;
+
+        function lift() {
+          if (lifted) return;
+          lifted = true;
+          setTimeout(function () {
+            document.documentElement.dataset.ready = "true";
+            window.dispatchEvent(new Event("lungyai:ready"));
+            loader.classList.add("is-leaving");
+            setTimeout(function () {
+              loader.remove();
+            }, reduce ? 300 : 1300);
+          }, Math.max(0, MIN_VISIBLE - performance.now()));
+        }
+
+        if (document.readyState === "complete") lift();
+        else window.addEventListener("load", lift);
+        setTimeout(lift, MAX_WAIT);
+      })();
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

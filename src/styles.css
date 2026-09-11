@@ -1,0 +1,276 @@
+@import "tailwindcss";
+
+/*
+  Lung Yai, 1731 SW 8th St.
+
+  Five colours, all taken from the sign and the building, used on a 60-30-10 split:
+    60  glass + sidewalk  white vinyl lettering and the concrete out front: page and card backgrounds
+    30  bark              the dark brown outline of the logo: text, hero, house rules, videos, footer
+    10  sign              the orange "LUNG YAI THAI TAPAS" lettering: buttons, links, spice marks
+        curry             golden khao soi broth: one highlight band and the house rules frame only
+
+  The other tokens are tints and shades of those five (text, borders, hover states), not new colours.
+*/
+@theme {
+  --color-glass: #ffffff;
+  --color-sidewalk: #e6e3de;
+  --color-line: #d6d1c9;
+
+  --color-bark: #2a1a11;
+  --color-bark-soft: #5a4536;
+  --color-smoke: #cdbfb2;
+
+  --color-sign: #b34b15;
+  --color-sign-deep: #8f3a0f;
+  /* Text-weight version of the sign orange: 6.8:1 on white, 5.3:1 on sidewalk. */
+  --color-sign-ink: #9a3f10;
+
+  /* Bark text on curry: 8.1:1. Curry on bark: 8.1:1. */
+  --color-curry: #e9a91e;
+
+  --font-display: "Pridi", Georgia, serif;
+  --font-sans: "Kanit", system-ui, sans-serif;
+}
+
+@layer base {
+  :root {
+    --header-h: 72px;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    /* Keeps anchor targets and keyboard focus clear of the sticky header (WCAG 2.4.11). */
+    scroll-padding-top: calc(var(--header-h) + 16px);
+  }
+
+  /* ...and clear of the fixed call/order bar on phones. */
+  @media (max-width: 767px) {
+    html {
+      scroll-padding-bottom: 96px;
+    }
+  }
+
+  button:not(:disabled),
+  [role="button"] {
+    cursor: pointer;
+  }
+
+  a,
+  button {
+    touch-action: manipulation;
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-glass);
+    color: var(--color-bark);
+    font-family: var(--font-sans);
+    font-weight: 300;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-curry);
+    color: var(--color-bark);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--color-sign);
+    outline-offset: 2px;
+  }
+
+  /* Focus rings that keep 3:1 against the dark and the curry surfaces. */
+  .on-bark :focus-visible {
+    outline-color: var(--color-curry);
+  }
+  .on-curry :focus-visible {
+    outline-color: var(--color-bark);
+  }
+}
+
+/*
+  Component classes live in the components layer so Tailwind utilities
+  (px-4, w-full...) can still override them where a variant needs it.
+*/
+@layer components {
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 60;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    background: var(--color-bark);
+    color: var(--color-glass);
+    font-weight: 500;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+
+  /* Squared like a shop sign. No uppercase tracking, no arrows. */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-height: 3rem;
+    padding: 0.75rem 1.375rem;
+    border: 1.5px solid transparent;
+    border-radius: 4px;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition:
+      background-color 150ms ease,
+      border-color 150ms ease,
+      color 150ms ease;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+
+  .btn-sign {
+    background: var(--color-sign);
+    color: var(--color-glass);
+  }
+  .btn-sign:hover {
+    background: var(--color-sign-deep);
+  }
+
+  .btn-quiet {
+    border-color: var(--color-bark);
+    color: var(--color-bark);
+  }
+  .btn-quiet:hover {
+    background: var(--color-bark);
+    color: var(--color-glass);
+  }
+
+  .btn-glass {
+    border-color: rgba(255, 255, 255, 0.85);
+    color: var(--color-glass);
+  }
+  .btn-glass:hover {
+    background: var(--color-glass);
+    color: var(--color-bark);
+  }
+
+  .btn-bark {
+    background: var(--color-bark);
+    color: var(--color-glass);
+  }
+  .btn-bark:hover {
+    background: #000;
+  }
+
+  /*
+    Khao soi breakdown. The stage is a size container, so each ingredient can sit on a
+    ring measured in cqw and the layout scales with the stage. --t (0 to 1) is driven by
+    scroll progress from framer-motion; without it the parts rest in their final place.
+  */
+  .breakdown-stage {
+    container-type: size;
+  }
+  .breakdown-part {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 19cqw;
+    margin: -9.5cqw 0 0 -9.5cqw;
+    transform: translate(
+        calc(var(--t, 1) * var(--cos) * 34cqw),
+        calc(var(--t, 1) * var(--sin) * 34cqw)
+      )
+      scale(calc(0.35 + var(--t, 1) * 0.65));
+    will-change: transform;
+  }
+
+  .link {
+    color: var(--color-sign-ink);
+    font-weight: 400;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+  .link:hover {
+    color: var(--color-bark);
+    text-decoration-thickness: 2px;
+  }
+
+  .link-on-bark {
+    color: var(--color-glass);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+  .link-on-bark:hover {
+    color: var(--color-curry);
+  }
+
+  /* The arched top of the Lung Yai sign, reused as a photo frame. */
+  .arch {
+    border-radius: 50vmax 50vmax 0 0;
+  }
+
+  /* Native scroll-snap rail for the dish strip. */
+  .rail {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(260px, 80%);
+    gap: 1.5rem;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+  .rail > * {
+    scroll-snap-align: start;
+  }
+  @media (min-width: 640px) {
+    .rail {
+      grid-auto-columns: calc((100% - 1.5rem) / 2);
+    }
+  }
+  @media (min-width: 1024px) {
+    .rail {
+      grid-auto-columns: calc((100% - 3rem) / 3);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.001ms !important;
+    animation-duration: 0.001ms !important;
+  }
+}
