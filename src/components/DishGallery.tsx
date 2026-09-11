@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useLenis } from "lenis/react";
 import { ChevronDown } from "lucide-react";
 import { MENU, RESTAURANT } from "@/data/restaurant";
 import { PHOTOS } from "@/data/photos";
@@ -34,12 +35,17 @@ const GALLERY = GALLERY_ORDER.flatMap((key) => {
 export function DishGallery() {
   const fullMenuRef = useRef<HTMLDetailsElement>(null);
   const totalDishes = ALL_DISHES.length;
+  const lenis = useLenis();
 
   const openFullMenu = () => {
     const details = fullMenuRef.current;
     if (!details) return;
     details.open = true;
-    details.scrollIntoView({ block: "start" });
+    if (lenis) {
+      lenis.scrollTo(details, { offset: -88 });
+    } else {
+      details.scrollIntoView({ block: "start" });
+    }
     details.querySelector("summary")?.focus({ preventScroll: true });
   };
 
