@@ -69,7 +69,6 @@ export function ChefRecommendations() {
           tabIndex={0}
           aria-label="Chef's recommendations. Scroll sideways for more dishes."
           className="rail mt-10"
-          data-lenis-prevent
         >
           {dishes.map((dish) => (
             <li key={dish.name} className="group">
