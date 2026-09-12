@@ -1,4 +1,4 @@
-import { RESTAURANT, WEEKLY_HOURS, type ServiceWindow } from "@/data/restaurant";
+import { RESTAURANT, WEEKLY_HOURS, type ServiceWindow } from "../data/restaurant";
 
 export interface ServiceStatus {
   isOpen: boolean;
