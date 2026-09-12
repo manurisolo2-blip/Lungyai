@@ -1,3 +1,5 @@
+import { useId, useMemo, useState } from "react";
+import { Search, X } from "lucide-react";
 import { MENU, type Spice } from "@/data/restaurant";
 
 const SPICE_LABEL: Record<Spice, string> = {
@@ -35,28 +37,90 @@ export function SpiceTag({ spice, onPhoto = false }: { spice: Spice; onPhoto?: b
   );
 }
 
-/** The complete written menu, grouped by section. */
+/** The complete written menu, grouped by section, with a filter for 38 dishes. */
 export function MenuList({ className = "" }: { className?: string }) {
+  const [query, setQuery] = useState("");
+  const searchId = useId();
+  const term = query.trim().toLowerCase();
+
+  const sections = useMemo(() => {
+    if (!term) return MENU;
+    return MENU.map((section) => ({
+      ...section,
+      dishes: section.dishes.filter((dish) =>
+        [dish.name, dish.thai ?? "", dish.description].join(" ").toLowerCase().includes(term)
+      ),
+    })).filter((section) => section.dishes.length > 0);
+  }, [term]);
+
+  const matches = sections.reduce((count, section) => count + section.dishes.length, 0);
+
   return (
     <div className={className}>
       <p className="flex flex-wrap items-center gap-x-1.5 text-[0.95rem] text-bark-soft">
         <SpiceTag spice="mild" /> and <SpiceTag spice="medium" /> mark the spicy dishes.
       </p>
 
-      <nav aria-label="Jump to a part of the menu" className="mt-5 flex flex-wrap gap-2">
-        {MENU.map((section) => (
-          <a
-            key={section.id}
-            href={`#menu-${section.id}`}
-            className="inline-flex min-h-11 items-center rounded-full border border-line px-4 text-[0.95rem] transition-colors hover:border-bark hover:bg-bark hover:text-glass"
-          >
-            {section.title}
-          </a>
-        ))}
-      </nav>
+      {/* Search and the section links are for reading on screen, so printing leaves them out. */}
+      <div className="menu-tools mt-5 flex flex-wrap items-center gap-3">
+        <div className="relative">
+          <label className="sr-only" htmlFor={searchId}>
+            Search the menu
+          </label>
+          <Search
+            aria-hidden="true"
+            className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-bark-soft"
+            strokeWidth={1.75}
+          />
+          <input
+            id={searchId}
+            type="search"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="Search dishes, pork, noodles..."
+            className="h-11 w-[min(20rem,100%)] rounded-full border border-line bg-glass pl-9 pr-9 text-[0.95rem] text-bark placeholder:text-bark-soft focus-visible:border-bark"
+          />
+          {query && (
+            <button
+              type="button"
+              onClick={() => setQuery("")}
+              aria-label="Clear the search"
+              className="absolute right-1 top-1/2 grid h-9 w-9 -translate-y-1/2 place-items-center rounded-full text-bark-soft transition-colors hover:text-bark"
+            >
+              <X className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />
+            </button>
+          )}
+        </div>
+
+        {!term && (
+          <nav aria-label="Jump to a part of the menu" className="flex flex-wrap gap-2">
+            {MENU.map((section) => (
+              <a
+                key={section.id}
+                href={`#menu-${section.id}`}
+                className="inline-flex min-h-11 items-center rounded-full border border-line px-4 text-[0.95rem] transition-colors hover:border-bark hover:bg-bark hover:text-glass"
+              >
+                {section.title}
+              </a>
+            ))}
+          </nav>
+        )}
+      </div>
+
+      <p aria-live="polite" className={term ? "mt-4 text-[0.95rem] text-bark-soft" : "sr-only"}>
+        {term
+          ? `${matches} ${matches === 1 ? "dish" : "dishes"} match "${query.trim()}"`
+          : `${MENU.reduce((count, section) => count + section.dishes.length, 0)} dishes`}
+      </p>
+
+      {term && matches === 0 && (
+        <p className="mt-6 text-[1.125rem]">
+          Nothing on the card matches that. Try "pork", "noodles" or "curry".
+        </p>
+      )}
 
       <div className="mt-10 gap-x-16 lg:columns-2">
-        {MENU.map((section) => (
+        {sections.map((section) => (
           <section
             key={section.id}
             id={`menu-${section.id}`}

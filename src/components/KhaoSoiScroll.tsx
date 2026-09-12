@@ -11,6 +11,11 @@ function PartImage({ part, className }: { part: KhaoSoiPart; className: string }
   return (
     <picture className="contents">
       <source
+        type="image/avif"
+        srcSet={`${part.image}-400.avif 400w, ${part.image}-600.avif 600w`}
+        sizes="(min-width: 1024px) 200px, 45vw"
+      />
+      <source
         type="image/webp"
         srcSet={`${part.image}-400.webp 400w, ${part.image}-600.webp 600w`}
         sizes="(min-width: 1024px) 200px, 45vw"
@@ -24,6 +29,11 @@ function PartImage({ part, className }: { part: KhaoSoiPart; className: string }
 function BowlImage({ className }: { className: string }) {
   return (
     <picture className="contents">
+      <source
+        type="image/avif"
+        srcSet={`${KHAO_SOI_BOWL.image}-600.avif 600w, ${KHAO_SOI_BOWL.image}-1200.avif 1200w`}
+        sizes="(min-width: 1024px) 40vw, 80vw"
+      />
       <source
         type="image/webp"
         srcSet={`${KHAO_SOI_BOWL.image}-600.webp 600w, ${KHAO_SOI_BOWL.image}-1200.webp 1200w`}

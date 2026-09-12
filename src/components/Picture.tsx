@@ -9,13 +9,15 @@ interface PictureProps {
   fetchPriority?: "high" | "low" | "auto";
 }
 
-/** WebP at several widths with a JPEG fallback, declared dimensions to avoid layout shift. */
+/** AVIF, then WebP, then JPEG, at several widths, with dimensions declared to avoid layout shift. */
 export function Picture({ photo, sizes, className = "", loading = "lazy", fetchPriority }: PictureProps) {
-  const srcSet = photo.widths.map((w) => `${photo.base}-${w}.webp ${w}w`).join(", ");
+  const srcSet = (format: "avif" | "webp") =>
+    photo.widths.map((w) => `${photo.base}-${w}.${format} ${w}w`).join(", ");
 
   return (
     <picture className="contents">
-      <source type="image/webp" srcSet={srcSet} sizes={sizes} />
+      <source type="image/avif" srcSet={srcSet("avif")} sizes={sizes} />
+      <source type="image/webp" srcSet={srcSet("webp")} sizes={sizes} />
       <img
         src={`${photo.base}.jpg`}
         alt={photo.alt}
