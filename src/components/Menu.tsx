@@ -43,6 +43,18 @@ export function MenuList({ className = "" }: { className?: string }) {
         <SpiceTag spice="mild" /> and <SpiceTag spice="medium" /> mark the spicy dishes.
       </p>
 
+      <nav aria-label="Jump to a part of the menu" className="mt-5 flex flex-wrap gap-2">
+        {MENU.map((section) => (
+          <a
+            key={section.id}
+            href={`#menu-${section.id}`}
+            className="inline-flex min-h-11 items-center rounded-full border border-line px-4 text-[0.95rem] transition-colors hover:border-bark hover:bg-bark hover:text-glass"
+          >
+            {section.title}
+          </a>
+        ))}
+      </nav>
+
       <div className="mt-10 gap-x-16 lg:columns-2">
         {MENU.map((section) => (
           <section

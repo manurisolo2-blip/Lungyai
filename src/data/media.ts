@@ -3,7 +3,7 @@ import type { YouTubeVideo } from "@/components/YouTubeFacade";
 /* Ambient hero loop: public-domain wok footage, 480p WebM transcode from Wikimedia Commons. */
 export const HERO_VIDEO = {
   src: "/media/wok-flames-480p.webm",
-  poster: "/media/wok-flames-poster.jpg",
+  poster: "/media/wok-flames-poster.webp",
   label: "Wok video in the header",
   credit: "Benoît Prieur",
   license: "CC0",

@@ -32,7 +32,22 @@ export function VideoHero() {
   const autoplayAllowed = !prefersReducedMotion && !expensive;
   const [playing, setPlaying] = useState(false);
   const [pausedByUser, setPausedByUser] = useState(false);
+  const [loadSource, setLoadSource] = useState(false);
   const ready = usePageReady();
+
+  /*
+    The clip is the heaviest thing on the page, so it is only asked for once the loading
+    screen is gone and the browser is idle. Until then the poster carries the hero.
+  */
+  useEffect(() => {
+    if (!ready || !autoplayAllowed) return;
+    if (typeof window.requestIdleCallback !== "function") {
+      const timer = window.setTimeout(() => setLoadSource(true), 500);
+      return () => window.clearTimeout(timer);
+    }
+    const idle = window.requestIdleCallback(() => setLoadSource(true), { timeout: 1500 });
+    return () => window.cancelIdleCallback(idle);
+  }, [ready, autoplayAllowed]);
 
   // Parallax on the way out: the text leaves faster than the footage behind it.
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
@@ -50,6 +65,8 @@ export function VideoHero() {
       return;
     }
 
+    if (!loadSource) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) video.play().catch(() => setPlaying(false));
@@ -59,7 +76,7 @@ export function VideoHero() {
     );
     observer.observe(video);
     return () => observer.disconnect();
-  }, [autoplayAllowed, pausedByUser]);
+  }, [autoplayAllowed, loadSource, pausedByUser]);
 
   const togglePlayback = () => {
     const video = videoRef.current;
@@ -92,13 +109,13 @@ export function VideoHero() {
         muted
         loop
         playsInline
-        preload={autoplayAllowed ? "metadata" : "none"}
+        preload="none"
         aria-hidden="true"
         tabIndex={-1}
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
       >
-        <source src={HERO_VIDEO.src} type="video/webm" />
+        {loadSource && <source src={HERO_VIDEO.src} type="video/webm" />}
       </motion.video>
 
       {/* Legibility scrim: text sits where the overlay is darkest (checked for 4.5:1 on bright flames). */}

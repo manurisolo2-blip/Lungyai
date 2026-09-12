@@ -5,6 +5,7 @@ import { HERO_VIDEO } from "@/data/media";
 import { KHAO_SOI_CREDITS } from "@/data/khaoSoi";
 import { weeklyHoursRows } from "@/lib/hours";
 import { ExternalLink } from "@/components/ExternalLink";
+import { OpenNow } from "@/components/OpenNow";
 import { revealGroup, revealItem } from "@/lib/reveal";
 
 interface Credit {
@@ -49,6 +50,7 @@ export function SiteFooter() {
 
         <motion.div {...revealItem} className="lg:col-span-3">
           <h2 className={HEADING}>Hours</h2>
+          <OpenNow className="mt-2 text-[0.95rem] text-glass" />
           <dl className="mt-4 space-y-3">
             {weeklyHoursRows().map((row) => (
               <div key={row.days}>

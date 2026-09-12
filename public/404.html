@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#2A1A11" />
+    <meta name="robots" content="noindex" />
+    <title>Page not found | Lung Yai Thai Tapas</title>
+    <link rel="icon" type="image/png" href="/images/lung-yai-logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500&family=Pridi:wght@700&display=swap" rel="stylesheet" />
+    <style>
+      :root { color-scheme: dark; }
+      body {
+        margin: 0;
+        min-height: 100svh;
+        display: grid;
+        place-items: center;
+        padding: 2rem 1.25rem;
+        background: #2a1a11;
+        color: #cdbfb2;
+        font-family: "Kanit", system-ui, sans-serif;
+        font-weight: 300;
+        font-size: 1.0625rem;
+        line-height: 1.6;
+        text-align: center;
+      }
+      img { width: clamp(120px, 26vw, 168px); height: auto; }
+      h1 {
+        margin: 2rem 0 0;
+        font-family: "Pridi", Georgia, serif;
+        font-weight: 700;
+        font-size: clamp(2.25rem, 7vw, 3.5rem);
+        line-height: 1.05;
+        color: #fff;
+      }
+      p { margin: 1rem auto 0; max-width: 42ch; }
+      .actions { margin-top: 2.25rem; display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; }
+      a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 3rem;
+        padding: 0.75rem 1.375rem;
+        border: 1.5px solid transparent;
+        border-radius: 4px;
+        font-weight: 500;
+        text-decoration: none;
+      }
+      .go-home { background: #b34b15; color: #fff; }
+      .go-home:hover { background: #8f3a0f; }
+      .call { border-color: rgba(255, 255, 255, 0.85); color: #fff; }
+      .call:hover { background: #fff; color: #2a1a11; }
+      a:focus-visible { outline: 3px solid #e9a91e; outline-offset: 2px; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <img src="/images/lung-yai-logo.png" width="300" height="271" alt="Lung Yai Thai Tapas" />
+      <h1>This page is off the menu</h1>
+      <p>The link you followed does not exist. The food does: 1731 SW 8th St, Miami.</p>
+      <div class="actions">
+        <a class="go-home" href="/">Back to the restaurant</a>
+        <a class="call" href="tel:+17863346262">Call (786) 334-6262</a>
+      </div>
+    </main>
+  </body>
+</html>

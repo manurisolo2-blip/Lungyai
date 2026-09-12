@@ -1,4 +1,4 @@
-import { useRef, type PointerEvent as ReactPointerEvent } from "react";
+import { useEffect, useRef, type PointerEvent as ReactPointerEvent } from "react";
 import { motion, useReducedMotion, useSpring } from "framer-motion";
 import { useLenis } from "lenis/react";
 import { ArrowUpRight, ChevronDown } from "lucide-react";
@@ -124,6 +124,15 @@ export function DishGallery() {
   const fullMenuRef = useRef<HTMLDetailsElement>(null);
   const totalDishes = ALL_DISHES.length;
   const lenis = useLenis();
+
+  // Printing should give the whole card, so open it before the print dialog reads the page.
+  useEffect(() => {
+    const openForPrint = () => {
+      if (fullMenuRef.current) fullMenuRef.current.open = true;
+    };
+    window.addEventListener("beforeprint", openForPrint);
+    return () => window.removeEventListener("beforeprint", openForPrint);
+  }, []);
 
   const openFullMenu = (anchorId?: string) => {
     const details = fullMenuRef.current;

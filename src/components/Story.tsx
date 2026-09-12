@@ -35,16 +35,18 @@ export function Story() {
 
           <div className="mt-6 space-y-5 text-[1.125rem] leading-[1.7]">
             <motion.p {...revealItem}>
-              Chef Bas and his brother came to Miami from Bangkok in 1994. For about twenty
-              years he cooked in other restaurants, many of them his brother's.
+              Bas Trisransi and his brother Bond came to Miami from Bangkok in 1994, to work for
+              an uncle who had a place in South Beach. For about twenty years Bas cooked in other
+              people's kitchens, many of them his brother's.
             </motion.p>
             <motion.p {...revealItem}>
-              The recipes are older than that. As boys, the two of them worked in their
-              grandfather's restaurant in Ayutthaya, a small place he kept going for almost
-              fifty years to put nine children through school.
+              The recipes are older. As boys the two of them worked for their grandfather, Yung
+              Lai, who kept a small restaurant in Ayutthaya, about fifty miles north of Bangkok,
+              going for almost five decades to put nine children through school.
             </motion.p>
             <motion.p {...revealItem}>
-              In August 2015, Bas opened Lung Yai on Calle Ocho in his grandfather's memory.
+              In August 2015 Bas opened Lung Yai, a forty-five seat room on Calle Ocho, in his
+              grandfather's memory.
             </motion.p>
           </div>
 

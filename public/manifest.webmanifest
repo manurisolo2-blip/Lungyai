@@ -1,0 +1,13 @@
+{
+  "name": "Lung Yai Thai Tapas",
+  "short_name": "Lung Yai",
+  "description": "Thai street food on Calle Ocho, Little Havana, Miami.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#2a1a11",
+  "theme_color": "#2a1a11",
+  "icons": [
+    { "src": "/images/app-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/images/app-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

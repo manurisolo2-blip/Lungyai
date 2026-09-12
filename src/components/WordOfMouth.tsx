@@ -11,7 +11,7 @@ import { revealGroup, revealItem, revealTilt } from "@/lib/reveal";
 */
 export function WordOfMouth() {
   return (
-    <section id="word-of-mouth" aria-labelledby="word-of-mouth-title" className="on-bark bg-bark py-20 text-glass sm:py-24">
+    <section id="word-of-mouth" aria-labelledby="word-of-mouth-title" className="rim-top on-bark bg-bark py-20 text-glass sm:py-24">
       <motion.div
         {...revealGroup}
         className="mx-auto grid max-w-[1440px] gap-12 px-5 [perspective:1200px] lg:grid-cols-12 lg:gap-16 lg:px-10"

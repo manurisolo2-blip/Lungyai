@@ -254,6 +254,22 @@
     font-size: clamp(1.9rem, 3.2vw, 2.75rem);
   }
 
+  /* A curved edge where a dark band rises out of the page, echoing the loading screen. */
+  .rim-top {
+    position: relative;
+  }
+  .rim-top::before {
+    content: "";
+    position: absolute;
+    /* Kept inside the viewport: an overhang here would add sideways scroll. */
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: clamp(36px, 5vw, 84px);
+    border-radius: 50% 50% 0 0;
+    background: inherit;
+  }
+
   /* The arched top of the Lung Yai sign, reused as a photo frame. */
   .arch {
     border-radius: 50vmax 50vmax 0 0;
@@ -307,5 +323,63 @@
   *::after {
     transition-duration: 0.001ms !important;
     animation-duration: 0.001ms !important;
+  }
+}
+
+/*
+  Print: people print a menu, not a website. Drop the chrome, the photos and the
+  dark panels, and let the written menu run down the page in black on white.
+*/
+@media print {
+  header,
+  #top,
+  #khao-soi,
+  #word-of-mouth,
+  [aria-labelledby="calle-title"],
+  [aria-labelledby="recommended-title"],
+  [aria-label="Awards"],
+  [data-nav-layer],
+  #menu > div > ul,
+  #menu nav,
+  footer details,
+  .btn,
+  .skip-link,
+  video,
+  iframe {
+    display: none !important;
+  }
+
+  #rules {
+    padding: 0 !important;
+    background: #fff !important;
+  }
+
+  body,
+  .on-bark,
+  [class*="bg-bark"],
+  [class*="bg-curry"],
+  [class*="bg-sidewalk"] {
+    background: #fff !important;
+    color: #000 !important;
+  }
+
+  [class*="text-glass"],
+  [class*="text-smoke"],
+  [class*="text-curry"],
+  [class*="text-bark-soft"] {
+    color: #000 !important;
+  }
+
+  #menu details > summary {
+    display: none !important;
+  }
+
+  main,
+  footer {
+    padding: 0 !important;
+  }
+
+  a {
+    text-decoration: none !important;
   }
 }
