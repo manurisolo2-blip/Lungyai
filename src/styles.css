@@ -206,10 +206,13 @@
     top: 50%;
     width: 19cqw;
     margin: -9.5cqw 0 0 -9.5cqw;
-    transform: translate(
+    /* --spin turns each piece towards the viewer as it leaves the bowl. */
+    transform: perspective(900px)
+      translate(
         calc(var(--t, 1) * var(--cos) * 34cqw),
         calc(var(--t, 1) * var(--sin) * 34cqw)
       )
+      rotateY(var(--spin, 0deg))
       scale(calc(0.35 + var(--t, 1) * 0.65));
     will-change: transform;
   }
@@ -272,6 +275,16 @@
   }
   .rail > * {
     scroll-snap-align: start;
+  }
+  /* Cards turn away from the middle of the strip, so the row reads with depth as it scrolls. */
+  .rail-card {
+    transform: perspective(1200px) rotateY(var(--tilt, 0deg));
+    transition: transform 220ms ease-out;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rail-card {
+      transform: none;
+    }
   }
   @media (min-width: 640px) {
     .rail {

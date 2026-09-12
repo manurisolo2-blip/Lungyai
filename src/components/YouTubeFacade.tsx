@@ -58,7 +58,7 @@ export function YouTubeFacade({ video, className = "" }: { video: YouTubeVideo; 
           </button>
         )}
       </div>
-      <figcaption className="mt-3 text-[0.95rem] leading-snug">
+      <figcaption className="mt-3 text-[0.95rem] leading-loose">
         <span className="font-medium">{video.caption}</span>
         <span className="block opacity-90">
           by{" "}

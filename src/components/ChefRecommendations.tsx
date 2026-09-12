@@ -1,10 +1,14 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { MENU } from "@/data/restaurant";
 import { PHOTOS } from "@/data/photos";
 import { Picture } from "@/components/Picture";
+import { revealGroup, revealItem } from "@/lib/reveal";
 
 const RAIL_GAP = 24;
+/** How far the cards at the edges of the strip turn away from you. */
+const MAX_TILT = 13;
 
 export function ChefRecommendations() {
   const section = MENU.find((s) => s.id === "chef");
@@ -14,24 +18,33 @@ export function ChefRecommendations() {
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
 
-  const syncButtons = useCallback(() => {
+  const syncRail = useCallback(() => {
     const rail = railRef.current;
     if (!rail) return;
     setAtStart(rail.scrollLeft < 8);
     setAtEnd(rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 8);
+
+    // Each card turns towards the middle of the strip, so the row has depth as it moves.
+    const middle = rail.scrollLeft + rail.clientWidth / 2;
+    for (const child of Array.from(rail.children)) {
+      const card = child as HTMLElement;
+      const offset = (card.offsetLeft + card.offsetWidth / 2 - middle) / rail.clientWidth;
+      const clamped = Math.max(-1, Math.min(1, offset));
+      card.style.setProperty("--tilt", `${(-clamped * MAX_TILT).toFixed(2)}deg`);
+    }
   }, []);
 
   useEffect(() => {
     const rail = railRef.current;
     if (!rail) return;
-    syncButtons();
-    rail.addEventListener("scroll", syncButtons, { passive: true });
-    window.addEventListener("resize", syncButtons);
+    syncRail();
+    rail.addEventListener("scroll", syncRail, { passive: true });
+    window.addEventListener("resize", syncRail);
     return () => {
-      rail.removeEventListener("scroll", syncButtons);
-      window.removeEventListener("resize", syncButtons);
+      rail.removeEventListener("scroll", syncRail);
+      window.removeEventListener("resize", syncRail);
     };
-  }, [syncButtons]);
+  }, [syncRail]);
 
   const scrollByCard = (direction: 1 | -1) => {
     const rail = railRef.current;
@@ -45,33 +58,34 @@ export function ChefRecommendations() {
 
   return (
     <section aria-labelledby="recommended-title" className="py-20 sm:py-24">
-      <div className="mx-auto max-w-[1440px] px-5 lg:px-10">
+      <motion.div {...revealGroup} className="mx-auto max-w-[1440px] px-5 lg:px-10">
         <div className="flex flex-wrap items-end justify-between gap-6">
-          <div>
+          <motion.div {...revealItem}>
             <h2 id="recommended-title" className="title-md">
               Chef's recommendations
             </h2>
             <p className="mt-3 max-w-[52ch] text-bark-soft">First time here? Start with these.</p>
-          </div>
+          </motion.div>
 
-          <div className="flex gap-2">
+          <motion.div {...revealItem} className="flex gap-2">
             <button type="button" onClick={() => scrollByCard(-1)} disabled={atStart} aria-label="Previous dishes" className={arrowClass}>
               <ChevronLeft className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
             </button>
             <button type="button" onClick={() => scrollByCard(1)} disabled={atEnd} aria-label="More dishes" className={arrowClass}>
               <ChevronRight className="h-5 w-5" strokeWidth={1.75} aria-hidden="true" />
             </button>
-          </div>
+          </motion.div>
         </div>
 
-        <ul
+        <motion.ul
+          {...revealItem}
           ref={railRef}
           tabIndex={0}
           aria-label="Chef's recommendations. Scroll sideways for more dishes."
           className="rail mt-10"
         >
           {dishes.map((dish) => (
-            <li key={dish.name} className="group">
+            <li key={dish.name} className="rail-card group">
               <div className="overflow-hidden rounded-[6px] bg-sidewalk">
                 <Picture
                   photo={PHOTOS[dish.photo!]}
@@ -88,8 +102,8 @@ export function ChefRecommendations() {
               <p className="mt-2 max-w-[42ch] text-[0.975rem] leading-relaxed text-bark-soft">{dish.description}</p>
             </li>
           ))}
-        </ul>
-      </div>
+        </motion.ul>
+      </motion.div>
     </section>
   );
 }

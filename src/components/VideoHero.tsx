@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { Pause, Play } from "lucide-react";
 import { RESTAURANT } from "@/data/restaurant";
 import { HERO_VIDEO } from "@/data/media";
@@ -23,6 +23,7 @@ const SLOW_CONNECTIONS = ["slow-2g", "2g", "3g"];
   for people who ask for reduced motion or have data saver on (they get the still poster).
 */
 export function VideoHero() {
+  const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useReducedMotion();
   const connection = (navigator as NavigatorWithConnection).connection;
@@ -32,6 +33,13 @@ export function VideoHero() {
   const [playing, setPlaying] = useState(false);
   const [pausedByUser, setPausedByUser] = useState(false);
   const ready = usePageReady();
+
+  // Parallax on the way out: the text leaves faster than the footage behind it.
+  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end start"] });
+  const still = Boolean(prefersReducedMotion);
+  const textY = useTransform(scrollYProgress, [0, 1], still ? ["0%", "0%"] : ["0%", "-24%"]);
+  const textFade = useTransform(scrollYProgress, [0, 0.75], still ? [1, 1] : [1, 0]);
+  const videoY = useTransform(scrollYProgress, [0, 1], still ? ["0%", "0%"] : ["0%", "14%"]);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -67,13 +75,15 @@ export function VideoHero() {
 
   return (
     <section
+      ref={sectionRef}
       id="top"
       aria-labelledby="hero-title"
       className="on-bark relative isolate flex min-h-[max(520px,100svh)] items-end overflow-hidden bg-bark text-glass lg:items-center"
     >
-      {/* Settles from a slight zoom while the loading screen lifts. */}
+      {/* Settles from a slight zoom while the loading screen lifts, then trails the scroll. */}
       <motion.video
         ref={videoRef}
+        style={{ y: videoY }}
         className="absolute inset-0 -z-20 h-full w-full object-cover"
         initial={{ scale: 1.08 }}
         animate={{ scale: ready ? 1 : 1.08 }}
@@ -97,7 +107,10 @@ export function VideoHero() {
         className="absolute inset-0 -z-10 bg-[linear-gradient(0deg,rgba(42,26,17,0.94)_0%,rgba(42,26,17,0.78)_50%,rgba(42,26,17,0.35)_100%)] lg:bg-[linear-gradient(90deg,rgba(42,26,17,0.92)_0%,rgba(42,26,17,0.72)_48%,rgba(42,26,17,0.12)_100%)]"
       />
 
-      <div className="mx-auto w-full max-w-[1440px] px-5 pb-28 pt-28 md:pb-16 lg:px-10 lg:py-24">
+      <motion.div
+        style={{ y: textY, opacity: textFade }}
+        className="mx-auto w-full max-w-[1440px] px-5 pb-28 pt-28 md:pb-16 lg:px-10 lg:py-24"
+      >
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: ready ? 1 : 0 }}
@@ -136,14 +149,14 @@ export function VideoHero() {
           animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
           transition={{ duration: 0.5, delay: REVEAL_DELAY + 0.44, ease: EASE_OUT }}
         >
-          <ExternalLink className="btn btn-sign" href={RESTAURANT.orderUrl}>
+          <ExternalLink className="btn btn-sign hidden md:inline-flex" href={RESTAURANT.orderUrl}>
             Order online
           </ExternalLink>
           <a className="btn btn-glass" href="#menu">
             See the menu
           </a>
         </motion.div>
-      </div>
+      </motion.div>
 
       <button
         type="button"

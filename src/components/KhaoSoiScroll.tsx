@@ -49,12 +49,14 @@ function FlyingPart({ part, index, progress }: { part: KhaoSoiPart; index: numbe
   const t = useTransform(progress, [start, end], [0, 1]);
   const opacity = useTransform(progress, [start, start + 0.04], [0, 1]);
   const labelOpacity = useTransform(progress, [end - 0.05, end], [0, 1]);
+  const spin = useTransform(t, [0, 1], [index % 2 === 0 ? "-38deg" : "38deg", "0deg"]);
   const radians = (part.angle * Math.PI) / 180;
 
   const style = {
     "--t": t,
     "--cos": Math.cos(radians).toFixed(4),
     "--sin": Math.sin(radians).toFixed(4),
+    "--spin": spin,
     opacity,
   } as unknown as CSSProperties;
 
@@ -83,6 +85,8 @@ function PinnedBreakdown() {
   const progress = useSpring(scrollYProgress, { stiffness: 150, damping: 30, mass: 0.3 });
   const bowlScale = useTransform(progress, [0, 0.3], [1.12, 0.5]);
   const bowlRotate = useTransform(progress, [0, 1], [0, -20]);
+  // Seen from the side at first, then lifted flat as the ingredients leave it.
+  const bowlTilt = useTransform(progress, [0, 0.38], [54, 0]);
 
   return (
     <section
@@ -112,7 +116,10 @@ function PinnedBreakdown() {
           <div className="col-span-8">
             <div className="breakdown-stage relative mx-auto aspect-square w-[min(100%,calc(100svh-150px))]">
               <div className="absolute inset-0 grid place-items-center">
-                <motion.div style={{ scale: bowlScale, rotate: bowlRotate }} className="w-[60cqw]">
+                <motion.div
+                  style={{ scale: bowlScale, rotate: bowlRotate, rotateX: bowlTilt, transformPerspective: 1200 }}
+                  className="w-[60cqw]"
+                >
                   <BowlImage className="aspect-square w-full rounded-full object-cover shadow-[0_30px_60px_-30px_rgba(42,26,17,0.8)]" />
                 </motion.div>
               </div>
