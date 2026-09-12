@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useLenis } from "lenis/react";
 import { RESTAURANT } from "@/data/restaurant";
 import { OpenNow } from "@/components/OpenNow";
 import { ExternalLink } from "@/components/ExternalLink";
@@ -23,6 +24,7 @@ export function SiteHeader() {
   const [inHero, setInHero] = useState(true);
   const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const lenis = useLenis();
 
   // The bar stays transparent while the hero is still underneath it.
   useEffect(() => {
@@ -81,16 +83,19 @@ export function SiteHeader() {
     root.style.overflow = "hidden";
     root.style.paddingRight = `${scrollbar}px`;
     if (header) header.style.paddingRight = `${scrollbar}px`;
+    // The smooth scroller keeps its own position, so it has to be paused as well.
+    lenis?.stop();
     behind.forEach((el) => (el.inert = true));
     window.addEventListener("keydown", onKey);
     return () => {
       root.style.overflow = "";
       root.style.paddingRight = "";
       if (header) header.style.paddingRight = "";
+      lenis?.start();
       behind.forEach((el) => (el.inert = false));
       window.removeEventListener("keydown", onKey);
     };
-  }, [open]);
+  }, [open, lenis]);
 
   // Over the hero or the open panel the bar has no background and light text.
   const onDark = inHero || open;

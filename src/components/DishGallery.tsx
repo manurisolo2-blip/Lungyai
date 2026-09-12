@@ -42,7 +42,7 @@ export function DishGallery() {
     if (!details) return;
     details.open = true;
     if (lenis) {
-      lenis.scrollTo(details, { offset: -88 });
+      lenis.scrollTo(details);
     } else {
       details.scrollIntoView({ block: "start" });
     }

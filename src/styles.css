@@ -35,7 +35,14 @@
 
 @layer base {
   :root {
-    --header-h: 72px;
+    --header-h: 76px;
+  }
+
+  /* The bar is taller from tablets up, where the logo is bigger. */
+  @media (min-width: 768px) {
+    :root {
+      --header-h: 88px;
+    }
   }
 
   html {

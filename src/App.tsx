@@ -21,7 +21,8 @@ export default function App() {
       options={{
         lerp: 0.075,
         smoothWheel: true,
-        anchors: { offset: -88 },
+        // Lenis subtracts the CSS scroll-padding itself, so links already clear the fixed header.
+        anchors: true,
       }}
     >
       {/* "user": transform animations switch off when the visitor asks for reduced motion. */}

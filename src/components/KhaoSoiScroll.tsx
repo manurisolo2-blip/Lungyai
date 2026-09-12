@@ -92,7 +92,7 @@ function PinnedBreakdown() {
       className="on-curry relative bg-curry"
       style={{ height: "280vh" }}
     >
-      <div className="sticky top-[72px] flex h-[calc(100svh-72px)] items-center overflow-hidden">
+      <div className="sticky top-[var(--header-h)] flex h-[calc(100svh-var(--header-h))] items-center overflow-hidden">
         <div className="mx-auto grid w-full max-w-[1440px] grid-cols-12 items-center gap-8 px-10">
           <div className="col-span-4">
             <h2 id="khao-soi-title" className="text-[clamp(2.5rem,4.4vw,4.25rem)] text-bark">
