@@ -1,8 +1,9 @@
-import { existsSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { PHOTOS, STOREFRONT_PHOTO } from "./photos";
 import { MENU } from "./restaurant";
 import { KHAO_SOI_BOWL, KHAO_SOI_PARTS } from "./khaoSoi";
+import { HERO_VIDEO } from "./media";
 
 /*
   Photos are referenced by string keys, so a rename or a retired file would only show up
@@ -53,5 +54,13 @@ describe("khao soi breakdown", () => {
   it("spreads the parts around the ring without repeating an angle", () => {
     const angles = KHAO_SOI_PARTS.map((part) => part.angle);
     expect(new Set(angles).size).toBe(angles.length);
+  });
+});
+
+describe("hero video", () => {
+  it("ships the clip and the poster, and index.html preloads that same poster", () => {
+    const missing = [HERO_VIDEO.src, HERO_VIDEO.poster].filter((src) => !existsSync(publicPath(src)));
+    expect(missing).toEqual([]);
+    expect(readFileSync("index.html", "utf8")).toContain(`href="${HERO_VIDEO.poster}"`);
   });
 });

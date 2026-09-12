@@ -1,8 +1,12 @@
 import type { YouTubeVideo } from "@/components/YouTubeFacade";
 
-/* Ambient hero loop: public-domain wok footage, 480p WebM transcode from Wikimedia Commons. */
+/*
+  Ambient hero loop: public-domain wok footage from Wikimedia Commons, cut to the twelve
+  seconds with the flames and re-encoded here as H.264 (790 KB, down from a 4.3 MB WebM).
+  AV1 was tried and dropped: at any size below this file it left block seams in the flames.
+*/
 export const HERO_VIDEO = {
-  src: "/media/wok-flames-480p.webm",
+  src: "/media/wok-flames.mp4",
   poster: "/media/wok-flames-poster.webp",
   label: "Wok video in the header",
   credit: "Benoît Prieur",

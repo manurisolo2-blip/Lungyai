@@ -115,7 +115,7 @@ export function VideoHero() {
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
       >
-        {loadSource && <source src={HERO_VIDEO.src} type="video/webm" />}
+        {loadSource && <source src={HERO_VIDEO.src} type="video/mp4" />}
       </motion.video>
 
       {/* Legibility scrim: text sits where the overlay is darkest (checked for 4.5:1 on bright flames). */}
