@@ -31,7 +31,7 @@ export const STOREFRONT_PHOTO: Photo = {
   "label": "Storefront",
   "alt": "The Lung Yai storefront on SW 8th Street: pine slat walls, a glass door and window, and stools at the counter inside",
   "credit": "Bill Wisser",
-  "sourceUrl": "https://billwisserphoto.com/",
+  "sourceUrl": "https://www.billwisserphoto.com/",
   "position": "40% 50%"
 };
 

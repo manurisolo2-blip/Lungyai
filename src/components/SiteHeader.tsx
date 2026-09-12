@@ -236,11 +236,6 @@ export function SiteHeader() {
                     Instagram
                   </ExternalLink>
                 </li>
-                <li>
-                  <ExternalLink className="link-on-bark" href={RESTAURANT.facebook}>
-                    Facebook
-                  </ExternalLink>
-                </li>
               </ul>
             </motion.div>
           </motion.div>

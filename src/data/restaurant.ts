@@ -16,8 +16,7 @@ export const RESTAURANT = {
   phone: "(786) 334-6262",
   phoneHref: "tel:+17863346262",
   orderUrl: "https://order.online/store/-27918858/?pickup=true&hideModal=true",
-  instagram: "https://www.instagram.com/lungyaithaitapas/",
-  facebook: "https://www.facebook.com/profile.php?id=100050371791870",
+  instagram: "https://www.instagram.com/lungyaithai/",
   timezone: "America/New_York",
 } as const;
 

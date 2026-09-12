@@ -67,11 +67,6 @@ export function SiteFooter() {
                 Instagram
               </ExternalLink>
             </li>
-            <li>
-              <ExternalLink className="link-on-bark" href={RESTAURANT.facebook}>
-                Facebook
-              </ExternalLink>
-            </li>
           </ul>
         </div>
 
