@@ -96,6 +96,21 @@ export const AWARDS: { source: string; title: string; years: string; href: strin
   },
 ];
 
+/** Short quotes, each checked word for word against the original article. */
+export const PRESS_QUOTES: { quote: string; source: string; detail?: string; href: string }[] = [
+  {
+    quote: "One of the city's hottest Thai kitchens.",
+    source: "MICHELIN Guide",
+    href: "https://guide.michelin.com/us/en/florida/miami/restaurant/lung-yai-thai-tapas",
+  },
+  {
+    quote: "A perfect expression of the peerless balance of salty, sweet, and sour.",
+    source: "Miami New Times",
+    detail: "Zachary Fagenson, October 2015",
+    href: "https://www.miaminewtimes.com/restaurants/lung-yai-thai-tapas-a-veteran-cooks-passion-project-breathes-fire-in-little-havana-7972662",
+  },
+];
+
 export const PRESS_REVIEW = {
   outlet: "Miami New Times",
   date: "October 2015",

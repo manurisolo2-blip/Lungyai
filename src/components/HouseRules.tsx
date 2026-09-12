@@ -11,7 +11,7 @@ export function HouseRules() {
       <div className="on-bark bg-bark text-glass">
         <div className="mx-auto grid max-w-[1400px] gap-12 px-5 py-16 sm:px-10 sm:py-20 lg:grid-cols-12 lg:gap-10 lg:py-28">
           <div className="lg:col-span-4">
-            <h2 id="rules-title" className="text-[clamp(2.25rem,4.4vw,3.75rem)] text-glass">
+            <h2 id="rules-title" className="title-lg text-glass">
               How a visit works
             </h2>
             <p className="mt-5 max-w-[34ch] text-[1.125rem] text-smoke">

@@ -48,7 +48,7 @@ export function ChefRecommendations() {
       <div className="mx-auto max-w-[1440px] px-5 lg:px-10">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <h2 id="recommended-title" className="text-[clamp(2rem,3.6vw,3rem)]">
+            <h2 id="recommended-title" className="title-md">
               Chef's recommendations
             </h2>
             <p className="mt-3 max-w-[52ch] text-bark-soft">First time here? Start with these.</p>

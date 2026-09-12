@@ -95,7 +95,7 @@ function PinnedBreakdown() {
       <div className="sticky top-[var(--header-h)] flex h-[calc(100svh-var(--header-h))] items-center overflow-hidden">
         <div className="mx-auto grid w-full max-w-[1440px] grid-cols-12 items-center gap-8 px-10">
           <div className="col-span-4">
-            <h2 id="khao-soi-title" className="text-[clamp(2.5rem,4.4vw,4.25rem)] text-bark">
+            <h2 id="khao-soi-title" className="title-xl text-bark">
               {TITLE}
             </h2>
             <p className="mt-5 max-w-[30ch] text-[1.2rem] text-bark">
@@ -134,7 +134,7 @@ function StaticBreakdown({ reduced }: { reduced: boolean }) {
   return (
     <section id="khao-soi" aria-labelledby="khao-soi-title" className="on-curry bg-curry py-20 sm:py-24">
       <div className="mx-auto max-w-[1100px] px-5">
-        <h2 id="khao-soi-title" className="text-[clamp(2.4rem,8vw,3.5rem)] text-bark">
+        <h2 id="khao-soi-title" className="title-xl text-bark">
           {TITLE}
         </h2>
         <p className="mt-3 text-[1.125rem] text-bark">Six things go into it.</p>

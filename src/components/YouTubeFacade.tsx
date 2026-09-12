@@ -40,7 +40,10 @@ export function YouTubeFacade({ video, className = "" }: { video: YouTubeVideo; 
             className="group absolute inset-0 h-full w-full"
           >
             <img
-              src={`https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`}
+              src={`https://i.ytimg.com/vi/${video.id}/maxresdefault.jpg`}
+              onError={(event) => {
+                event.currentTarget.src = `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`;
+              }}
               alt=""
               loading="lazy"
               decoding="async"

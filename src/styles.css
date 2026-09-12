@@ -236,6 +236,21 @@
     color: var(--color-curry);
   }
 
+  /*
+    Three title sizes, so the page reads in order instead of shouting everywhere at once:
+    xl for the two moments that carry the page, lg for the loud house rules panel,
+    md for the supporting sections.
+  */
+  .title-xl {
+    font-size: clamp(2.75rem, 6vw, 5.25rem);
+  }
+  .title-lg {
+    font-size: clamp(2.25rem, 4.4vw, 3.75rem);
+  }
+  .title-md {
+    font-size: clamp(1.9rem, 3.2vw, 2.75rem);
+  }
+
   /* The arched top of the Lung Yai sign, reused as a photo frame. */
   .arch {
     border-radius: 50vmax 50vmax 0 0;

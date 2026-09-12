@@ -12,7 +12,10 @@ const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 const REVEAL_DELAY = 0.3;
 const HEADLINE = ["Thai street food", "on Calle Ocho."];
 
-type NavigatorWithConnection = Navigator & { connection?: { saveData?: boolean } };
+type NavigatorWithConnection = Navigator & {
+  connection?: { saveData?: boolean; effectiveType?: string };
+};
+const SLOW_CONNECTIONS = ["slow-2g", "2g", "3g"];
 
 /*
   Full-bleed wok footage behind the headline. Following the skill's auto-play rule, the
@@ -22,9 +25,10 @@ type NavigatorWithConnection = Navigator & { connection?: { saveData?: boolean }
 export function VideoHero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const prefersReducedMotion = useReducedMotion();
-  const saveData = Boolean((navigator as NavigatorWithConnection).connection?.saveData);
-  // No autoplay, and no video download at all, for reduced motion or data saver.
-  const autoplayAllowed = !prefersReducedMotion && !saveData;
+  const connection = (navigator as NavigatorWithConnection).connection;
+  const expensive = Boolean(connection?.saveData) || SLOW_CONNECTIONS.includes(connection?.effectiveType ?? "");
+  // No autoplay, and no video download at all, for reduced motion, data saver or a slow connection.
+  const autoplayAllowed = !prefersReducedMotion && !expensive;
   const [playing, setPlaying] = useState(false);
   const [pausedByUser, setPausedByUser] = useState(false);
   const ready = usePageReady();

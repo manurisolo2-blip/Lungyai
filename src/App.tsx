@@ -7,7 +7,7 @@ import { ChefRecommendations } from "@/components/ChefRecommendations";
 import { KhaoSoiScroll } from "@/components/KhaoSoiScroll";
 import { HouseRules } from "@/components/HouseRules";
 import { DishGallery } from "@/components/DishGallery";
-import { Watch } from "@/components/Watch";
+import { WordOfMouth } from "@/components/WordOfMouth";
 import { CalleOcho } from "@/components/CalleOcho";
 import { Story } from "@/components/Story";
 import { SiteFooter } from "@/components/SiteFooter";
@@ -39,7 +39,7 @@ export default function App() {
           <KhaoSoiScroll />
           <HouseRules />
           <DishGallery />
-          <Watch />
+          <WordOfMouth />
           <CalleOcho />
           <Story />
         </main>

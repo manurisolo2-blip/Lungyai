@@ -22,43 +22,32 @@ function DriftPhoto({ photo, caption, sizes, className }: { photo: Photo; captio
   );
 }
 
+/* The door and the street it opens onto. Two photos only: both are the place itself, not the neighbourhood. */
 export function CalleOcho() {
   return (
     <section aria-labelledby="calle-title" className="py-20 sm:py-28">
       <div className="mx-auto grid max-w-[1440px] gap-10 px-5 lg:grid-cols-12 lg:px-10">
-        <div className="lg:col-span-4">
-          <h2 id="calle-title" className="text-[clamp(2.25rem,4.4vw,3.75rem)]">
+        <div className="lg:col-span-3">
+          <h2 id="calle-title" className="title-md">
             On Calle Ocho
           </h2>
-          <p className="mt-4 max-w-[32ch] text-[1.125rem] text-bark-soft">
+          <p className="mt-4 max-w-[30ch] text-[1.125rem] text-bark-soft">
             A small pine-wood front on SW 8th Street, in the middle of Little Havana.
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:col-span-8 lg:grid-cols-3">
+        <div className="grid gap-3 sm:gap-4 lg:col-span-9">
           <DriftPhoto
             photo={STOREFRONT_PHOTO}
             caption="1731 SW 8th St"
-            sizes="(min-width: 1024px) 38vw, 100vw"
-            className="col-span-2 aspect-[3/2] lg:row-span-2 lg:aspect-auto"
-          />
-          <DriftPhoto
-            photo={PHOTOS["calle-ocho-gallo"]}
-            caption="A painted rooster on Calle Ocho"
-            sizes="(min-width: 1024px) 19vw, 50vw"
-            className="aspect-[4/5]"
-          />
-          <DriftPhoto
-            photo={PHOTOS["little-havana-mural"]}
-            caption="A mural in Little Havana"
-            sizes="(min-width: 1024px) 19vw, 50vw"
-            className="aspect-[4/5]"
+            sizes="(min-width: 1024px) 72vw, 100vw"
+            className="aspect-[3/2] lg:aspect-[16/9]"
           />
           <DriftPhoto
             photo={PHOTOS["calle-ocho-street"]}
             caption="SW 8th Street"
-            sizes="(min-width: 1024px) 57vw, 100vw"
-            className="col-span-2 aspect-[21/9] lg:col-span-3"
+            sizes="(min-width: 1024px) 72vw, 100vw"
+            className="aspect-[21/9]"
           />
         </div>
       </div>

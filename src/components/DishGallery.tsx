@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { useLenis } from "lenis/react";
-import { ChevronDown } from "lucide-react";
+import { ArrowUpRight, ChevronDown } from "lucide-react";
 import { MENU, RESTAURANT } from "@/data/restaurant";
 import { PHOTOS } from "@/data/photos";
 import { Picture } from "@/components/Picture";
@@ -24,29 +24,31 @@ const GALLERY_ORDER = [
 
 const ALL_DISHES = MENU.flatMap((section) => section.dishes);
 const GALLERY = GALLERY_ORDER.flatMap((key) => {
-  const dish = ALL_DISHES.find((item) => item.photo === key);
-  return dish && PHOTOS[key] ? [{ dish, photo: PHOTOS[key] }] : [];
+  for (const section of MENU) {
+    const dish = section.dishes.find((item) => item.photo === key);
+    if (dish && PHOTOS[key]) return [{ dish, photo: PHOTOS[key], section }];
+  }
+  return [];
 });
 
 /*
-  The menu leads with a handful of photos. The full written menu stays one click away for
-  descriptions and the dishes without a photo.
+  The menu leads with a handful of photos. Each one opens the written menu at its own part of
+  the card, so the photo is a way in rather than a dead end.
 */
 export function DishGallery() {
   const fullMenuRef = useRef<HTMLDetailsElement>(null);
   const totalDishes = ALL_DISHES.length;
   const lenis = useLenis();
 
-  const openFullMenu = () => {
+  const openFullMenu = (anchorId?: string) => {
     const details = fullMenuRef.current;
     if (!details) return;
     details.open = true;
-    if (lenis) {
-      lenis.scrollTo(details);
-    } else {
-      details.scrollIntoView({ block: "start" });
-    }
-    details.querySelector("summary")?.focus({ preventScroll: true });
+    const target = (anchorId && document.getElementById(anchorId)) || details;
+    if (lenis) lenis.scrollTo(target);
+    else target.scrollIntoView({ block: "start" });
+    const focusable = target === details ? details.querySelector("summary") : (target as HTMLElement);
+    focusable?.focus({ preventScroll: true });
   };
 
   return (
@@ -54,7 +56,7 @@ export function DishGallery() {
       <div className="mx-auto max-w-[1440px] px-5 lg:px-10">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
-            <h2 id="menu-title" className="text-[clamp(2.5rem,5vw,4.25rem)]">
+            <h2 id="menu-title" className="title-xl">
               The menu
             </h2>
             <p className="mt-3 max-w-[46ch] text-[1.125rem] text-bark-soft">
@@ -67,7 +69,7 @@ export function DishGallery() {
         </div>
 
         <ul className="mt-10 grid grid-flow-dense grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {GALLERY.map(({ dish, photo }, index) => {
+          {GALLERY.map(({ dish, photo, section }, index) => {
             const featured = index === 0;
             return (
               <li
@@ -76,30 +78,44 @@ export function DishGallery() {
                   featured ? "col-span-2 row-span-2" : ""
                 }`}
               >
-                <Picture
-                  photo={photo}
-                  sizes={
-                    featured
-                      ? "(min-width: 1024px) 50vw, 100vw"
-                      : "(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                  }
-                  className="aspect-[4/5] h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-                />
-                <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-bark/95 via-bark/80 to-transparent px-3 pb-3 pt-14 sm:px-4 sm:pb-4 sm:pt-20">
-                  <h3
-                    className={`font-display font-bold leading-tight text-glass ${
-                      featured ? "text-[clamp(1.75rem,3.2vw,2.75rem)]" : "text-[1.1rem] sm:text-[1.3rem]"
-                    }`}
+                <button
+                  type="button"
+                  onClick={() => openFullMenu(`menu-${section.id}`)}
+                  aria-label={`${dish.name}: read it on the full menu, under ${section.title}`}
+                  className="block h-full w-full text-left"
+                >
+                  <Picture
+                    photo={photo}
+                    sizes={
+                      featured
+                        ? "(min-width: 1024px) 50vw, 100vw"
+                        : "(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
+                    }
+                    className="aspect-[4/5] h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                  />
+                  {/* Marks the tile as a way into the written menu, on touch as well as on hover. */}
+                  <span
+                    aria-hidden="true"
+                    className="absolute right-2 top-2 grid h-9 w-9 place-items-center rounded-full bg-bark/60 text-glass backdrop-blur-sm transition-colors group-hover:bg-sign sm:right-3 sm:top-3"
                   >
-                    {dish.name}
-                  </h3>
-                  {dish.thai && (
-                    <p lang="th" className="text-[0.9rem] text-smoke">
-                      {dish.thai}
-                    </p>
-                  )}
-                  {dish.spice && <SpiceTag spice={dish.spice} onPhoto />}
-                </div>
+                    <ArrowUpRight className="h-5 w-5" strokeWidth={1.75} />
+                  </span>
+                  <span className="pointer-events-none absolute inset-x-0 bottom-0 block bg-gradient-to-t from-bark/95 via-bark/80 to-transparent px-3 pb-3 pt-14 sm:px-4 sm:pb-4 sm:pt-20">
+                    <span
+                      className={`block font-display font-bold leading-tight text-glass ${
+                        featured ? "text-[clamp(1.75rem,3.2vw,2.75rem)]" : "text-[1.1rem] sm:text-[1.3rem]"
+                      }`}
+                    >
+                      {dish.name}
+                    </span>
+                    {dish.thai && (
+                      <span lang="th" className="block text-[0.9rem] text-smoke">
+                        {dish.thai}
+                      </span>
+                    )}
+                    {dish.spice && <SpiceTag spice={dish.spice} onPhoto />}
+                  </span>
+                </button>
               </li>
             );
           })}
@@ -114,7 +130,7 @@ export function DishGallery() {
             </p>
             <button
               type="button"
-              onClick={openFullMenu}
+              onClick={() => openFullMenu()}
               className="btn btn-glass self-start focus-visible:outline-glass"
             >
               Read the full menu

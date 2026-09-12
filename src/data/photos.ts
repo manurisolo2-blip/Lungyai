@@ -240,23 +240,6 @@ export const PHOTOS: Record<string, Photo> = {
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Panang_curry_(42943883862).jpg",
     "position": "50% 50%"
   },
-  "calle-ocho-gallo": {
-    "base": "/images/photos/calle-ocho-gallo",
-    "widths": [
-      480,
-      800,
-      1200
-    ],
-    "width": 1200,
-    "height": 1503,
-    "label": "Calle Ocho rooster",
-    "alt": "A painted rooster sculpture on Calle Ocho",
-    "credit": "Sharon Hahn Darlin",
-    "license": "CC BY 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Calle_Ocho,_Little_Havana,_Miami,_Florida_2021_-_Gallo_de_Calle_Ocho.jpg",
-    "position": "50% 50%"
-  },
   "calle-ocho-street": {
     "base": "/images/photos/calle-ocho-street",
     "widths": [
@@ -272,23 +255,6 @@ export const PHOTOS: Record<string, Photo> = {
     "license": "CC BY-SA 4.0",
     "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
     "sourceUrl": "https://commons.wikimedia.org/wiki/File:Calle_Ocho,_Peque%C3%B1a_Habana,_Miami_Enero_2018_37.jpg",
-    "position": "50% 50%"
-  },
-  "little-havana-mural": {
-    "base": "/images/photos/little-havana-mural",
-    "widths": [
-      480,
-      800,
-      1200
-    ],
-    "width": 1200,
-    "height": 900,
-    "label": "Little Havana mural",
-    "alt": "A large mural on a building along a Little Havana street",
-    "credit": "Infrogmation",
-    "license": "CC BY 2.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by/2.0/",
-    "sourceUrl": "https://commons.wikimedia.org/wiki/File:South_Florida_January_2018_-_Little_Havana,_Miami_-_18.jpg",
     "position": "50% 50%"
   }
 };

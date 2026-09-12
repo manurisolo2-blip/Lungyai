@@ -16,7 +16,7 @@ export function Story() {
         </div>
 
         <div className="max-w-[62ch] lg:col-span-7 lg:col-start-6">
-          <h2 id="story-title" className="text-[clamp(2.25rem,4.4vw,3.5rem)]">
+          <h2 id="story-title" className="title-md">
             Our story
           </h2>
 

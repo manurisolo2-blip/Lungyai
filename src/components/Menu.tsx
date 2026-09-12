@@ -49,7 +49,8 @@ export function MenuList({ className = "" }: { className?: string }) {
             key={section.id}
             id={`menu-${section.id}`}
             aria-labelledby={`menu-${section.id}-title`}
-            className="mb-14 break-inside-avoid"
+            tabIndex={-1}
+            className="mb-14 break-inside-avoid outline-none"
           >
             <h3 id={`menu-${section.id}-title`} className="flex flex-wrap items-baseline gap-x-3 text-[1.9rem]">
               {section.title}
