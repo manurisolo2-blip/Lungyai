@@ -2,10 +2,30 @@
   The six parts come straight from the restaurant's menu description of khao soi:
   "Fresh egg noodles in golden curry, crispy noodles, coriander and red onion.
    Braised beef, chicken breast or chicken drumstick."
-  Images are square crops of Wikimedia Commons photos (credited below).
+  Part images are square crops of Wikimedia Commons photos (credited below).
 */
 
 const DIR = "/images/khao-soi-parts";
+
+export interface TurnFrames {
+  dir: string;
+  count: number;
+  width: number;
+  height: number;
+}
+
+/*
+  The bowl that turns in the breakdown: transparent frames cut out of a turntable clip supplied
+  for this site, by scripts/turntable-frames.py. Large for the pinned desktop scene, small for
+  phones and tablets. Files are 000.avif and 000.webp and on inside each folder.
+*/
+export const KHAO_SOI_TURN: { alt: string; sizes: Record<"large" | "small", TurnFrames> } = {
+  alt: "A bowl of khao soi turning: curry, egg noodles, chicken drumsticks, crispy noodles, coriander and green onion",
+  sizes: {
+    large: { dir: "/media/khao-soi-turn/900", count: 64, width: 900, height: 581 },
+    small: { dir: "/media/khao-soi-turn/720", count: 36, width: 720, height: 465 },
+  },
+};
 
 export interface KhaoSoiPart {
   id: string;
@@ -16,11 +36,6 @@ export interface KhaoSoiPart {
   /** Where the part lands on the ring, in degrees clockwise from the right. */
   angle: number;
 }
-
-export const KHAO_SOI_BOWL = {
-  image: `${DIR}/bowl`,
-  alt: "A bowl of khao soi seen from above, with braised beef, crispy noodles and green onion in orange curry",
-};
 
 export const KHAO_SOI_PARTS: KhaoSoiPart[] = [
   { id: "curry", name: "Golden curry", thai: "น้ำแกง", note: "Coconut curry broth.", image: `${DIR}/curry`, angle: -90 },
@@ -33,7 +48,7 @@ export const KHAO_SOI_PARTS: KhaoSoiPart[] = [
 
 export const KHAO_SOI_CREDITS = [
   {
-    label: "Khao soi bowl, curry, egg noodles and beef (cropped)",
+    label: "Curry, egg noodles and beef (cropped)",
     credit: "Takeaway",
     license: "CC BY-SA 3.0",
     licenseUrl: "https://creativecommons.org/licenses/by-sa/3.0/",

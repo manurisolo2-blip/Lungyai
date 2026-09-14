@@ -1,8 +1,9 @@
 import { useRef, type CSSProperties } from "react";
 import { motion, useReducedMotion, useScroll, useSpring, useTransform, type MotionValue } from "framer-motion";
-import { KHAO_SOI_BOWL, KHAO_SOI_PARTS, type KhaoSoiPart } from "@/data/khaoSoi";
+import { KHAO_SOI_PARTS, type KhaoSoiPart } from "@/data/khaoSoi";
 import { RESTAURANT } from "@/data/restaurant";
 import { ExternalLink } from "@/components/ExternalLink";
+import { TurningBowl } from "@/components/TurningBowl";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const TITLE = "Inside a bowl of khao soi";
@@ -22,32 +23,6 @@ function PartImage({ part, className }: { part: KhaoSoiPart; className: string }
       />
       {/* Decorative: the part's name is printed right next to it. */}
       <img src={`${part.image}.jpg`} alt="" width={600} height={600} loading="lazy" decoding="async" className={className} />
-    </picture>
-  );
-}
-
-function BowlImage({ className }: { className: string }) {
-  return (
-    <picture className="contents">
-      <source
-        type="image/avif"
-        srcSet={`${KHAO_SOI_BOWL.image}-600.avif 600w, ${KHAO_SOI_BOWL.image}-1200.avif 1200w`}
-        sizes="(min-width: 1024px) 40vw, 80vw"
-      />
-      <source
-        type="image/webp"
-        srcSet={`${KHAO_SOI_BOWL.image}-600.webp 600w, ${KHAO_SOI_BOWL.image}-1200.webp 1200w`}
-        sizes="(min-width: 1024px) 40vw, 80vw"
-      />
-      <img
-        src={`${KHAO_SOI_BOWL.image}.jpg`}
-        alt={KHAO_SOI_BOWL.alt}
-        width={1200}
-        height={1200}
-        loading="lazy"
-        decoding="async"
-        className={className}
-      />
     </picture>
   );
 }
@@ -93,10 +68,11 @@ function PinnedBreakdown() {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start start", "end end"] });
   const progress = useSpring(scrollYProgress, { stiffness: 150, damping: 30, mass: 0.3 });
-  const bowlScale = useTransform(progress, [0, 0.3], [1.12, 0.5]);
-  const bowlRotate = useTransform(progress, [0, 1], [0, -20]);
-  // Seen from the side at first, then lifted flat as the ingredients leave it.
-  const bowlTilt = useTransform(progress, [0, 0.38], [54, 0]);
+  // Big at first, then it makes room for the ingredients on the ring.
+  const bowlScale = useTransform(progress, [0, 0.3], [1.12, 0.68]);
+  // The turn starts as the section comes up the screen, not only once it is pinned.
+  const { scrollYProgress: enteringProgress } = useScroll({ target: sectionRef, offset: ["start end", "end end"] });
+  const turn = useSpring(enteringProgress, { stiffness: 150, damping: 30, mass: 0.3 });
 
   return (
     <section
@@ -126,11 +102,9 @@ function PinnedBreakdown() {
           <div className="col-span-8">
             <div className="breakdown-stage relative mx-auto aspect-square w-[min(100%,calc(100svh-150px))]">
               <div className="absolute inset-0 grid place-items-center">
-                <motion.div
-                  style={{ scale: bowlScale, rotate: bowlRotate, rotateX: bowlTilt, transformPerspective: 1200 }}
-                  className="w-[60cqw]"
-                >
-                  <BowlImage className="aspect-square w-full rounded-full object-cover shadow-[0_30px_60px_-30px_rgba(42,26,17,0.8)]" />
+                {/* Sits a little low: the noodles rise above the rim, and the side labels stay clear of it. */}
+                <motion.div style={{ scale: bowlScale, y: "7%" }} className="w-[64cqw]">
+                  <TurningBowl progress={turn} size="large" />
                 </motion.div>
               </div>
               <ul className="absolute inset-0">
@@ -146,8 +120,15 @@ function PinnedBreakdown() {
   );
 }
 
-/* Phones, tablets and reduced motion: same content, no pinning, nothing tied to scroll position. */
+/*
+  Phones, tablets and reduced motion: same content, no pinning. The bowl turns while it crosses
+  the screen, and stays still for reduced motion.
+*/
 function StaticBreakdown({ reduced }: { reduced: boolean }) {
+  const bowlRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: bowlRef, offset: ["start end", "end start"] });
+  const turn = useTransform(scrollYProgress, [0.1, 0.9], [0, 1]);
+
   return (
     <section id="khao-soi" aria-labelledby="khao-soi-title" className="on-curry bg-curry py-20 sm:py-24">
       <div className="mx-auto max-w-[1100px] px-5">
@@ -156,8 +137,8 @@ function StaticBreakdown({ reduced }: { reduced: boolean }) {
         </h2>
         <p className="mt-3 text-[1.125rem] text-bark">Six things go into it.</p>
 
-        <div className="mx-auto mt-10 w-[80%] max-w-sm">
-          <BowlImage className="aspect-square w-full rounded-full object-cover shadow-[0_30px_60px_-30px_rgba(42,26,17,0.8)]" />
+        <div ref={bowlRef} className="mx-auto mt-10 max-w-xl">
+          <TurningBowl progress={reduced ? undefined : turn} size="small" />
         </div>
 
         <ul className="mt-12 grid grid-cols-2 gap-x-5 gap-y-9 sm:grid-cols-3">

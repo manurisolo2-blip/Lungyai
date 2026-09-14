@@ -1,8 +1,8 @@
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { PHOTOS, STOREFRONT_PHOTO } from "./photos";
 import { MENU } from "./restaurant";
-import { KHAO_SOI_BOWL, KHAO_SOI_PARTS } from "./khaoSoi";
+import { KHAO_SOI_PARTS, KHAO_SOI_TURN } from "./khaoSoi";
 import { HERO_VIDEO } from "./media";
 
 /*
@@ -44,11 +44,26 @@ describe("dish photos", () => {
 });
 
 describe("khao soi breakdown", () => {
-  it("has an image for the bowl and every part", () => {
-    const missing = [KHAO_SOI_BOWL.image, ...KHAO_SOI_PARTS.map((part) => part.image)]
+  it("has an image for every part", () => {
+    const missing = KHAO_SOI_PARTS.map((part) => part.image)
       .flatMap((base) => [`${base}.jpg`, `${base}-600.webp`])
       .filter((file) => !existsSync(publicPath(file)));
     expect(missing).toEqual([]);
+  });
+
+  it("ships every frame of the turning bowl in both formats, at the size the data gives", () => {
+    for (const frames of Object.values(KHAO_SOI_TURN.sizes)) {
+      const expected = Array.from({ length: frames.count }, (_, index) => String(index).padStart(3, "0"))
+        .flatMap((name) => [`${name}.avif`, `${name}.webp`])
+        .sort();
+      expect(readdirSync(publicPath(frames.dir)).sort()).toEqual(expected);
+
+      // The canvas takes its shape from the data, so it has to match the files. Extended WebP
+      // header: canvas width and height minus one, 24-bit little endian, at bytes 24 and 27.
+      const header = readFileSync(publicPath(`${frames.dir}/000.webp`));
+      expect(header.toString("ascii", 12, 16)).toBe("VP8X");
+      expect([header.readUIntLE(24, 3) + 1, header.readUIntLE(27, 3) + 1]).toEqual([frames.width, frames.height]);
+    }
   });
 
   it("spreads the parts around the ring without repeating an angle", () => {
