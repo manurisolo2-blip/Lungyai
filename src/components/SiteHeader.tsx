@@ -118,7 +118,7 @@ export function SiteHeader() {
             aria-label="Lung Yai Thai Tapas, back to top"
           >
             <img
-              src="/images/lung-yai-logo.png"
+              src="/images/lung-yai-logo.webp"
               alt=""
               width={300}
               height={271}

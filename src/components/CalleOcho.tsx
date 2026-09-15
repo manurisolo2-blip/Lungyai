@@ -31,7 +31,8 @@ export function CalleOcho() {
         {...revealGroup}
         className="mx-auto grid max-w-[1440px] gap-10 px-5 [perspective:1400px] lg:grid-cols-12 lg:px-10"
       >
-        <div className="lg:col-span-3">
+        {/* Stays beside the photos while they scroll past, so the column never reads as empty. */}
+        <div className="lg:sticky lg:top-[calc(var(--header-h)+2.5rem)] lg:col-span-3 lg:self-start">
           <motion.h2 {...revealItem} id="calle-title" className="title-md">
             On Calle Ocho
           </motion.h2>

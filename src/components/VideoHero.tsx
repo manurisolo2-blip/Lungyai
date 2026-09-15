@@ -55,6 +55,9 @@ export function VideoHero() {
   const textY = useTransform(scrollYProgress, [0, 1], still ? ["0%", "0%"] : ["0%", "-24%"]);
   const textFade = useTransform(scrollYProgress, [0, 0.75], still ? [1, 1] : [1, 0]);
   const videoY = useTransform(scrollYProgress, [0, 1], still ? ["0%", "0%"] : ["0%", "14%"]);
+  // On the way out the pause button would pass under the header's menu button, so it fades first.
+  const controlsOpacity = useTransform(scrollYProgress, [0.5, 0.7], [1, 0]);
+  const controlsVisibility = useTransform(controlsOpacity, (value) => (value < 0.02 ? "hidden" : "visible"));
 
   useEffect(() => {
     const video = videoRef.current;
@@ -156,7 +159,7 @@ export function VideoHero() {
           animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           transition={{ duration: 0.6, delay: REVEAL_DELAY + 0.32, ease: EASE_OUT }}
         >
-          Chef Bas cooks his grandfather's recipes from Ayutthaya on a hot wok in Little
+          Chef Bas cooks his grandfather’s recipes from Ayutthaya on a hot wok in Little
           Havana. No reservations, and each table orders once.
         </motion.p>
 
@@ -175,10 +178,11 @@ export function VideoHero() {
         </motion.div>
       </motion.div>
 
-      <button
+      <motion.button
         type="button"
         onClick={togglePlayback}
         aria-label={playing ? "Pause background video" : "Play background video"}
+        style={{ opacity: controlsOpacity, visibility: controlsVisibility }}
         className="absolute bottom-5 right-5 grid h-11 w-11 place-items-center rounded-full border border-glass/60 bg-bark/60 text-glass backdrop-blur-sm transition-colors hover:bg-bark"
       >
         {playing ? (
@@ -186,7 +190,7 @@ export function VideoHero() {
         ) : (
           <Play className="h-4 w-4 translate-x-[1px]" fill="currentColor" strokeWidth={0} aria-hidden="true" />
         )}
-      </button>
+      </motion.button>
     </section>
   );
 }

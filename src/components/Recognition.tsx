@@ -28,19 +28,21 @@ export function Recognition() {
               <a className="link" href={michelin.href} target="_blank" aria-describedby="opens-in-new-tab" rel="noopener noreferrer">
                 Michelin Guide Bib Gourmand
               </a>{" "}
-              {michelin.years}
+              <span className="whitespace-nowrap">{michelin.years}</span>
             </motion.li>
           )}
           <motion.li {...revealItem} className="sm:whitespace-nowrap">
             Miami New Times Best Thai Restaurant,{" "}
-            {newTimes.map((award, index) => (
-              <span key={award.years}>
-                {index > 0 && " and "}
-                <a className="link" href={award.href} target="_blank" aria-describedby="opens-in-new-tab" rel="noopener noreferrer">
-                  {award.years}
-                </a>
-              </span>
-            ))}
+            <span className="whitespace-nowrap">
+              {newTimes.map((award, index) => (
+                <span key={award.years}>
+                  {index > 0 && " and "}
+                  <a className="link" href={award.href} target="_blank" aria-describedby="opens-in-new-tab" rel="noopener noreferrer">
+                    {award.years}
+                  </a>
+                </span>
+              ))}
+            </span>
           </motion.li>
         </ul>
       </motion.div>

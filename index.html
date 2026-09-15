@@ -202,7 +202,7 @@
     <div id="loader" role="status" aria-live="polite">
       <div class="loader-mark">
         <img
-          src="/images/lung-yai-logo.png"
+          src="/images/lung-yai-logo.webp"
           width="300"
           height="271"
           alt=""
@@ -223,19 +223,29 @@
       (function () {
         var MIN_VISIBLE = 700;
         var MAX_WAIT = 4000;
+        var root = document.documentElement;
         var loader = document.getElementById("loader");
         var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
         var lifted = false;
+
+        /*
+          With scripts on, the plain HTML version of the page under the loader is kept invisible:
+          it reflows when the fonts arrive, and those moves would count as layout shift though
+          nobody sees them. It comes back only if the app has not replaced it by the time the
+          loader is gone, so a failed script still leaves something to read.
+        */
+        root.classList.add("js");
 
         function lift() {
           if (lifted) return;
           lifted = true;
           setTimeout(function () {
-            document.documentElement.dataset.ready = "true";
+            root.dataset.ready = "true";
             window.dispatchEvent(new Event("lungyai:ready"));
             loader.classList.add("is-leaving");
             setTimeout(function () {
               loader.remove();
+              if (document.getElementById("seo-shell")) root.classList.remove("js");
             }, reduce ? 300 : 1300);
           }, Math.max(0, MIN_VISIBLE - performance.now()));
         }

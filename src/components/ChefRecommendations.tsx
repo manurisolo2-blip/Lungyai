@@ -62,7 +62,7 @@ export function ChefRecommendations() {
         <div className="flex flex-wrap items-end justify-between gap-6">
           <motion.div {...revealItem}>
             <h2 id="recommended-title" className="title-md">
-              Chef's recommendations
+              Chef’s recommendations
             </h2>
             <p className="mt-3 max-w-[52ch] text-bark-soft">First time here? Start with these.</p>
           </motion.div>
@@ -81,8 +81,8 @@ export function ChefRecommendations() {
           {...revealItem}
           ref={railRef}
           tabIndex={0}
-          aria-label="Chef's recommendations. Scroll sideways for more dishes."
-          className="rail mt-10"
+          aria-label="Chef’s recommendations. Scroll sideways for more dishes."
+          className="rail mt-7"
         >
           {dishes.map((dish) => (
             <li key={dish.name} className="rail-card group">

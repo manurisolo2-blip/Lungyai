@@ -23,7 +23,7 @@ function ChiliMark() {
 export function SpiceTag({ spice, onPhoto = false }: { spice: Spice; onPhoto?: boolean }) {
   if (onPhoto) {
     return (
-      <span className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-sign px-2 py-0.5 text-[0.8rem] font-normal text-glass">
+      <span className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-sign px-2 py-0.5 text-[0.875rem] font-normal text-glass">
         <ChiliMark />
         {SPICE_LABEL[spice]}
       </span>

@@ -19,7 +19,7 @@ export function Story() {
             viewport={{ once: true, margin: "0px 0px -12% 0px" }}
             transition={{ duration: 1, ease: EASE_OUT }}
             style={{ transformOrigin: "left center" }}
-            src="/images/lung-yai-logo.png"
+            src="/images/lung-yai-logo.webp"
             alt="The Lung Yai Thai Tapas sign"
             width={300}
             height={271}
@@ -37,7 +37,7 @@ export function Story() {
             <motion.p {...revealItem}>
               Bas Trisransi and his brother Bond came to Miami from Bangkok in 1994, to work for
               an uncle who had a place in South Beach. For about twenty years Bas cooked in other
-              people's kitchens, many of them his brother's.
+              people’s kitchens, many of them his brother’s.
             </motion.p>
             <motion.p {...revealItem}>
               The recipes are older. As boys the two of them worked for their grandfather, Yung
@@ -46,7 +46,7 @@ export function Story() {
             </motion.p>
             <motion.p {...revealItem}>
               In August 2015 Bas opened Lung Yai, a forty-five seat room on Calle Ocho, in his
-              grandfather's memory.
+              grandfather’s memory.
             </motion.p>
           </div>
 

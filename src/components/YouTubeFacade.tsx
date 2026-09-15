@@ -45,6 +45,8 @@ export function YouTubeFacade({ video, className = "" }: { video: YouTubeVideo; 
                 event.currentTarget.src = `https://i.ytimg.com/vi/${video.id}/hqdefault.jpg`;
               }}
               alt=""
+              width={1280}
+              height={720}
               loading="lazy"
               decoding="async"
               className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"

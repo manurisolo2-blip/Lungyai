@@ -29,7 +29,7 @@ export function SiteFooter() {
       >
         <motion.div {...revealItem} className="lg:col-span-3">
           <img
-            src="/images/lung-yai-logo.png"
+            src="/images/lung-yai-logo.webp"
             alt="Lung Yai Thai Tapas"
             width={300}
             height={271}
@@ -100,8 +100,9 @@ export function SiteFooter() {
               Photo and video credits
             </summary>
             <p className="mt-2 max-w-[80ch]">
-              Storefront photo by {STOREFRONT_PHOTO.credit}. The other photos and the wok video come from
-              Wikimedia Commons and show each dish or place, not our own plates. Some are cropped or resized.
+              Storefront photo by {STOREFRONT_PHOTO.credit}. The turning bowl of khao soi was made for this
+              site. The other photos and the wok video come from Wikimedia Commons. Dishes are shown as they
+              are made in general, not our own plates, and some photos are cropped or resized.
             </p>
             <ul className="mt-3 gap-x-10 text-[0.9375rem] leading-[2] md:columns-2">
               {credits.map((item) => (

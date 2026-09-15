@@ -48,6 +48,7 @@ function seoShellMarkup(): string {
         Styles for the shell only. Scoped by id so they beat the reset, and thrown away with
         the shell when React mounts. This is what a visitor with scripts off actually reads.
       */
+      .js #seo-shell { visibility: hidden; }
       #seo-shell { max-width: 46rem; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; color: #2a1a11;
         font-family: "Kanit", system-ui, sans-serif; font-weight: 300; line-height: 1.6; }
       #seo-shell h1 { margin: 0 0 1rem; font-family: "Pridi", Georgia, serif; font-weight: 700;
@@ -65,7 +66,7 @@ function seoShellMarkup(): string {
     </style>
     <div id="seo-shell">
       <h1>${escape(RESTAURANT.name)}</h1>
-      <p>Thai street food on Calle Ocho. Chef Bas cooks his grandfather's recipes from Ayutthaya
+      <p>Thai street food on Calle Ocho. Chef Bas cooks his grandfather’s recipes from Ayutthaya
       on a hot wok in ${escape(RESTAURANT.neighborhood)}. No reservations, and each table orders once.</p>
       <address>${escape(RESTAURANT.street)}, ${escape(RESTAURANT.city)}.
         <a href="${escape(RESTAURANT.phoneHref)}">${escape(RESTAURANT.phone)}</a></address>

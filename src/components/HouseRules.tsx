@@ -9,7 +9,7 @@ import { revealGroup, revealItem, revealTilt } from "@/lib/reveal";
 */
 export function HouseRules() {
   return (
-    <section id="rules" aria-labelledby="rules-title" className="bg-curry p-2 [perspective:1600px] sm:p-4 lg:p-5">
+    <section id="rules" aria-labelledby="rules-title" className="bg-curry p-3 [perspective:1600px] sm:p-4 lg:p-5">
       <motion.div
         {...revealGroup}
         variants={{ hidden: {}, shown: { transition: { staggerChildren: 0.07, delayChildren: 0.12 } } }}
@@ -48,7 +48,7 @@ export function HouseRules() {
           </ol>
 
           <motion.p {...revealItem} className="font-display text-2xl font-semibold text-curry lg:col-span-8 lg:col-start-5">
-            That's all. Enjoy.
+            That’s all. Enjoy.
           </motion.p>
         </motion.div>
       </motion.div>

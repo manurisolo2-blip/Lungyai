@@ -99,7 +99,7 @@ export const AWARDS: { source: string; title: string; years: string; href: strin
 /** Short quotes, each checked word for word against the original article. */
 export const PRESS_QUOTES: { quote: string; source: string; detail?: string; href: string }[] = [
   {
-    quote: "One of the city's hottest Thai kitchens.",
+    quote: "One of the city’s hottest Thai kitchens.",
     source: "MICHELIN Guide",
     href: "https://guide.michelin.com/us/en/florida/miami/restaurant/lung-yai-thai-tapas",
   },
@@ -114,7 +114,7 @@ export const PRESS_QUOTES: { quote: string; source: string; detail?: string; hre
 export const PRESS_REVIEW = {
   outlet: "Miami New Times",
   date: "October 2015",
-  headline: "Lung Yai Thai Tapas, a Veteran Cook's Passion Project, Breathes Fire in Little Havana",
+  headline: "Lung Yai Thai Tapas, a Veteran Cook’s Passion Project, Breathes Fire in Little Havana",
   href: "https://www.miaminewtimes.com/restaurants/lung-yai-thai-tapas-a-veteran-cooks-passion-project-breathes-fire-in-little-havana-7972662",
 };
 
@@ -153,7 +153,7 @@ export interface MenuSection {
 export const MENU: MenuSection[] = [
   {
     id: "chef",
-    title: "Chef's recommendations",
+    title: "Chef’s recommendations",
     thai: "อาหารแนะนำ",
     dishes: [
       {
@@ -252,7 +252,7 @@ export const MENU: MenuSection[] = [
       {
         name: "Chicken wings",
         thai: "ปีกไก่ทอด",
-        description: "Marinated Thai style in the chef's sauce.",
+        description: "Marinated Thai style in the chef’s sauce.",
       },
       {
         name: "Crispy spring rolls",
